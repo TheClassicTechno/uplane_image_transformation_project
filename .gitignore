@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+backend/.env
+frontend/.env
+backend/data/
+frontend/dist/
+backend/metrics/output/
+backend/metrics/results.json
+backend/metrics/results.md
+samples/*
+!samples/README.md
