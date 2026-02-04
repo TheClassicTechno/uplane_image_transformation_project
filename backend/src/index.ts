@@ -74,7 +74,12 @@ app.get("/api/images", (req, res) => {
 const cancelledJobs = new Set<string>();
 
 // Main processing pipeline for a single upload.
-const processImageJob = async (record: ImageRecord, fileBuffer: Buffer, filename: string) => {
+const processImageJob = async (
+  record: ImageRecord,
+  fileBuffer: Buffer,
+  filename: string,
+  mimeType: string
+) => {
   const folder = "uplane-image-transformation";
   let originalPublicId: string | null = null;
   let processedPublicId: string | null = null;
@@ -109,7 +114,7 @@ const processImageJob = async (record: ImageRecord, fileBuffer: Buffer, filename
             .resize({ width: 1500, height: 1500, fit: "inside", withoutEnlargement: true })
             .toBuffer()
         : fileBuffer;
-    const removedBuffer = await removeBackground(preprocessed, filename);
+    const removedBuffer = await removeBackground(preprocessed, filename, mimeType);
     const removeEnd = performance.now();
 
     // Step 2: horizontal flip
@@ -227,7 +232,7 @@ app.post("/api/images", upload.single("image"), async (req, res, next) => {
     // Sync mode is used for tests and optional local debugging.
     const runSync = process.env.NODE_ENV === "test" || req.query.sync === "true";
     if (runSync) {
-      await processImageJob(record, req.file.buffer, filename);
+      await processImageJob(record, req.file.buffer, filename, req.file.mimetype);
       const updated = getRecord(id);
       if (updated?.status === "failed") {
         res.status(500).json(updated);
@@ -237,7 +242,7 @@ app.post("/api/images", upload.single("image"), async (req, res, next) => {
       return;
     }
 
-    enqueue(() => processImageJob(record, req.file!.buffer, filename));
+    enqueue(() => processImageJob(record, req.file!.buffer, filename, req.file!.mimetype));
     res.status(202).json({ ...record, queueDepth: getQueueDepth() });
   } catch (error) {
     next(error);

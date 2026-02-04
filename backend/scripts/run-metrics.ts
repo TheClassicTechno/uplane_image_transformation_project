@@ -143,9 +143,18 @@ const run = async () => {
   for (const filePath of sampleImages) {
     const filename = path.basename(filePath);
     const inputBuffer = fs.readFileSync(filePath);
+    const extension = path.extname(filename).toLowerCase();
+    const mimeType =
+      extension === ".jpg" || extension === ".jpeg"
+        ? "image/jpeg"
+        : extension === ".webp"
+        ? "image/webp"
+        : extension === ".avif"
+        ? "image/avif"
+        : "image/png";
 
     const removeStart = performance.now();
-    const removedBuffer = await removeBackground(inputBuffer, filename);
+    const removedBuffer = await removeBackground(inputBuffer, filename, mimeType);
     const removeEnd = performance.now();
 
     const flipStart = performance.now();
