@@ -10,3 +10,6 @@ backend/metrics/results.json
 backend/metrics/results.md
 samples/*
 !samples/README.md
+!samples/sample-mug.png
+!samples/sample-succulent.png
+!samples/sample-sneakers.png
