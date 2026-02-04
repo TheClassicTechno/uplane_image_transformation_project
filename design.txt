@@ -1,0 +1,56 @@
+
+
+Step-by-step solution (product + engineering)
+1) Define the UX flow (keep it fast, clear, human)
+Single, focused screen: upload → processing → result.
+Immediate feedback: show a thumbnail preview of the upload.
+Processing states: "Removing background..." then "Flipping image..."
+Outcome: show the edited image with a Copy URL button and Download.
+Delete: clear button to remove both original and processed asset.
+Why this works: users understand exactly what’s happening, trust the process, and can complete the task in seconds.
+2) Choose stack that supports fast delivery + polish
+Frontend: React (or Next.js) for a crisp, responsive UI.
+Backend: TypeScript + Express (or Fastify) for clear API structure.
+Storage: Cloudinary or S3.
+Cloudinary is great here: it can host images and give public URLs easily.
+Background removal service: Remove.bg / Photoroom / Clipdrop.
+All have free credits; Remove.bg is common and easy to integrate.
+3) Backend API design (simple, clean, real-world)
+Endpoints:
+POST /api/images
+Uploads the image, processes it, stores output, returns URL.
+GET /api/images/:id
+Fetches image metadata + processed URL.
+DELETE /api/images/:id
+Deletes original + processed files and metadata.
+Response shape (clean + predictable):
+{  "id": "img_123",  "status": "ready",  "originalUrl": "...",  "processedUrl": "...",  "createdAt": "..."}
+4) Processing pipeline (robust and ordered)
+Receive upload (multipart form data)
+Send to background removal service
+Flip horizontally (Sharp in Node/TS)
+Upload processed image to hosting
+Store record (in memory or lightweight DB like SQLite)
+Return URL
+This mirrors the spec exactly and makes it easy to debug.
+5) Frontend UI details that feel "startup-ready"
+Drag-and-drop upload with file validation
+Crisp progress UI with minimal text
+Result card:
+Edited image preview
+Copy link button with success toast
+Delete button (confirmation)
+6) Security + reliability touches
+Store API keys in environment variables.
+Limit file type + size.
+Clear error messages (e.g., "Background service unavailable — try again").
+7) Deployment (live URL + repo)
+Backend: Render / Railway / Fly.io
+Frontend: Vercel / Netlify
+Provide the live URL and GitHub repo.
+Final deliverable (what they expect to see)
+Live site that feels polished, not like a demo.
+Fully working upload → remove bg → flip → host → link.
+Clear code structure with real API design.
+Easy delete flow.
+SQLlite 
