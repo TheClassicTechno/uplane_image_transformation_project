@@ -9,6 +9,9 @@ type ImageRecord = {
   processedUrl?: string | null;
   error?: string | null;
   mode?: "optimized" | "original";
+  removeBgMs?: number | null;
+  flipMs?: number | null;
+  uploadMs?: number | null;
   createdAt: string;
 };
 
@@ -27,6 +30,8 @@ const App = () => {
   const [mode, setMode] = useState<"optimized" | "original">("optimized");
   const [records, setRecords] = useState<ImageRecord[]>([]);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [isGeneratingSample, setIsGeneratingSample] = useState(false);
   const navSections = ["about", "motivation", "how", "benefits", "gallery", "tools"];
 
   const fileName = useMemo(() => file?.name ?? "No file selected", [file]);
@@ -38,6 +43,7 @@ const App = () => {
     setRecord(null);
     setError(null);
     setCopyState("idle");
+    setCopiedId(null);
     setProcessingStep(null);
     setIsProcessing(false);
   };
@@ -141,6 +147,15 @@ const App = () => {
     window.setTimeout(() => setCopyState("idle"), 2000);
   };
 
+  const handleCopyFromGallery = async (id: string, url?: string | null) => {
+    if (!url) {
+      return;
+    }
+    await navigator.clipboard.writeText(url);
+    setCopiedId(id);
+    window.setTimeout(() => setCopiedId(null), 2000);
+  };
+
   const handleDelete = async () => {
     // Delete hosted assets and remove the record.
     if (!record) {
@@ -197,6 +212,63 @@ const App = () => {
       setError(message);
     } finally {
       setDeletingId(null);
+    }
+  };
+
+  const formatMs = (value?: number | null) => {
+    if (value === null || value === undefined) {
+      return "—";
+    }
+    return `${value} ms`;
+  };
+
+  const createSampleImageFile = async (): Promise<File> => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 640;
+    canvas.height = 480;
+    const context = canvas.getContext("2d");
+    if (!context) {
+      throw new Error("Canvas is not available.");
+    }
+    const gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient.addColorStop(0, "#60a5fa");
+    gradient.addColorStop(1, "#a78bfa");
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = "rgba(255, 255, 255, 0.85)";
+    context.beginPath();
+    context.arc(220, 210, 120, 0, Math.PI * 2);
+    context.fill();
+    context.fillStyle = "rgba(15, 23, 42, 0.8)";
+    context.font = "bold 42px Arial";
+    context.fillText("Demo", 330, 250);
+
+    const blob = await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob((result) => {
+        if (!result) {
+          reject(new Error("Failed to generate sample image."));
+          return;
+        }
+        resolve(result);
+      }, "image/png");
+    });
+
+    return new File([blob], "sample.png", { type: "image/png" });
+  };
+
+  const handleTrySample = async () => {
+    if (isProcessing || isGeneratingSample) {
+      return;
+    }
+    setIsGeneratingSample(true);
+    try {
+      const sampleFile = await createSampleImageFile();
+      handleFile(sampleFile);
+    } catch (sampleError) {
+      const message = sampleError instanceof Error ? sampleError.message : "Unable to load sample.";
+      setError(message);
+    } finally {
+      setIsGeneratingSample(false);
     }
   };
 
@@ -427,6 +499,14 @@ const App = () => {
               <span>or click to browse</span>
             </div>
           </div>
+          <button
+            className="secondary"
+            type="button"
+            onClick={handleTrySample}
+            disabled={isProcessing || isGeneratingSample}
+          >
+            {isGeneratingSample ? "Preparing sample..." : "Try sample image"}
+          </button>
           <div className="file-row">
             <span>{fileName}</span>
             {file && (
@@ -473,6 +553,11 @@ const App = () => {
                 <button className="danger" type="button" onClick={handleDelete} disabled={isProcessing}>
                   Delete
                 </button>
+              </div>
+              <div className="metrics-row">
+                <span>remove.bg: {formatMs(record.removeBgMs)}</span>
+                <span>flip: {formatMs(record.flipMs)}</span>
+                <span>upload: {formatMs(record.uploadMs)}</span>
               </div>
             </>
           ) : record ? (
@@ -559,7 +644,11 @@ const App = () => {
         <div className="info-card">
           <h2>All photos</h2>
           {records.length === 0 ? (
-            <p>No uploads yet. Your recent transformations will appear here.</p>
+            <div className="empty-gallery">
+              <div className="empty-orb" aria-hidden="true" />
+              <p>No uploads yet. Your recent transformations will appear here.</p>
+              <span>Try the sample image above to see a full end‑to‑end run.</span>
+            </div>
           ) : (
             <div className="table">
               <div className="table-row header">
@@ -592,14 +681,28 @@ const App = () => {
                     )}
                   </span>
                   <span>
-                    <button
-                      className="table-action danger"
-                      type="button"
-                      onClick={() => handleDeleteRecord(item.id)}
-                      disabled={deletingId === item.id}
-                    >
-                      {deletingId === item.id ? "Deleting..." : "Delete"}
-                    </button>
+                    <div className="table-actions">
+                      <button
+                        className="table-action secondary"
+                        type="button"
+                        onClick={() => handleCopyFromGallery(item.id, item.processedUrl)}
+                      >
+                        {copiedId === item.id ? "Copied" : "Share"}
+                      </button>
+                      {item.processedUrl && (
+                        <a className="table-action secondary" href={item.processedUrl} download>
+                          Download
+                        </a>
+                      )}
+                      <button
+                        className="table-action danger"
+                        type="button"
+                        onClick={() => handleDeleteRecord(item.id)}
+                        disabled={deletingId === item.id}
+                      >
+                        {deletingId === item.id ? "Deleting..." : "Delete"}
+                      </button>
+                    </div>
                   </span>
                 </div>
               ))}
