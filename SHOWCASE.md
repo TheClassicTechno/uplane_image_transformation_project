@@ -7,6 +7,8 @@ Image Transform Studio turns a multi‑tool workflow into a single action. Uploa
 - Real hosted URLs and deletion support, not placeholders or mock assets.
 - TypeScript backend with clear API boundaries and strong error handling.
 - A server‑backed gallery shows recent successful transformations.
+- One‑click sample image demo removes first‑use friction.
+- Inline timing badges surface real performance.
 
 ### What this demonstrates
 - Product instincts: minimal steps, high clarity, strong feedback.

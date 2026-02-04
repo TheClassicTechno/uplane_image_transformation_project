@@ -4,8 +4,8 @@
 - Show the single‑screen layout and top navigation.
 - Call out the process rail and the two primary panels.
 
-### 2) Upload a sample image (png avif jpg etc)
-- Drag a sample into the dropzone.
+### 2) Upload a sample image
+- Click “Try sample image” to load the built‑in demo asset, or drag a file into the dropzone.
 - Point out the immediate preview and enabled “Process image” button.
 - Toggle “Optimized” vs “Original” to show quality tradeoffs.
 
@@ -18,6 +18,7 @@
 - Show the processed image with a transparent background.
 - Click “Copy URL” and paste into a new tab.
 - Download the image for a quick check.
+- Call out the inline timing badges for remove.bg, flip, and upload.
 
 ### 5) Cleanup
 - Click “Delete”.
@@ -25,6 +26,7 @@
 
 ### 6) Gallery and history (optional)
 - Scroll to “All photos” and show recent successful transformations.
+- Use the “Share” and “Download” actions inside the table.
 - Highlight that the gallery is server‑backed and ready for sharing.
 
 ### 7) Quick technical note (optional)

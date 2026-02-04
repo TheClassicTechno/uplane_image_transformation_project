@@ -16,6 +16,8 @@
 - Copy URL and Download actions are always visible after success.
 - Delete removes both hosted versions with explicit confirmation state.
 - A mode toggle lets users choose optimized speed or full‑quality output.
+- Gallery rows include share, download, and delete actions for rapid iteration.
+- A sample image button lets first‑time users demo in one click.
 
 ### Accessibility and clarity
 - Buttons and inputs remain visible and labeled at all times.
@@ -26,3 +28,4 @@
 - The UI mirrors the backend pipeline order so the mental model matches.
 - The result card reflects the actual hosted asset URL, not a mock.
 - Async processing and caching keep the UI responsive during heavy work.
+- Timing badges expose real pipeline latency without extra UI.
