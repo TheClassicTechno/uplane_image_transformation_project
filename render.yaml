@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: image-transform-backend
+    env: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 3001
+      - key: CLIENT_ORIGIN
+        value: https://your-frontend-domain.vercel.app
+      - key: REMOVE_BG_API_KEY
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: DATABASE_PATH
+        value: /opt/render/project/src/backend/data/image-transform.db
+
+staticSites:
+  - name: image-transform-frontend
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://your-backend-domain.onrender.com
