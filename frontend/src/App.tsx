@@ -26,6 +26,7 @@ const App = () => {
   const [activeSection, setActiveSection] = useState("about");
   const [mode, setMode] = useState<"optimized" | "original">("optimized");
   const [records, setRecords] = useState<ImageRecord[]>([]);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const navSections = ["about", "motivation", "how", "benefits", "gallery", "tools"];
 
   const fileName = useMemo(() => file?.name ?? "No file selected", [file]);
@@ -166,6 +167,36 @@ const App = () => {
     } finally {
       setProcessingStep(null);
       setIsProcessing(false);
+    }
+  };
+
+  const handleDeleteRecord = async (id: string) => {
+    // Remove a record from the gallery list.
+    if (deletingId) {
+      return;
+    }
+    const confirmed = window.confirm("Delete this image and remove it from the gallery?");
+    if (!confirmed) {
+      return;
+    }
+    setDeletingId(id);
+    try {
+      const response = await fetch(`${apiBaseUrl}/api/images/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({}));
+        throw new Error(payload.error ?? "Delete failed.");
+      }
+      if (record?.id === id) {
+        resetSession();
+      }
+      fetchRecords();
+    } catch (deleteError) {
+      const message = deleteError instanceof Error ? deleteError.message : "Unexpected error.";
+      setError(message);
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -537,6 +568,7 @@ const App = () => {
                 <span>Mode</span>
                 <span>Created</span>
                 <span>Result</span>
+                <span>Action</span>
               </div>
               {records.filter((item) => item.status === "ready").map((item, index) => (
                 <div className="table-row" key={item.id}>
@@ -558,6 +590,16 @@ const App = () => {
                     ) : (
                       "—"
                     )}
+                  </span>
+                  <span>
+                    <button
+                      className="table-action danger"
+                      type="button"
+                      onClick={() => handleDeleteRecord(item.id)}
+                      disabled={deletingId === item.id}
+                    >
+                      {deletingId === item.id ? "Deleting..." : "Delete"}
+                    </button>
                   </span>
                 </div>
               ))}

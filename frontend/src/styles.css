@@ -466,7 +466,7 @@ html {
 
 .table-row {
   display: grid;
-  grid-template-columns: 80px 1fr 1fr 1.5fr 1fr;
+  grid-template-columns: 80px 1fr 1fr 1.5fr 1fr 120px;
   gap: 12px;
   font-size: 13px;
   padding: 10px 12px;
@@ -488,6 +488,12 @@ html {
   color: #2563eb;
   text-decoration: none;
   font-weight: 600;
+}
+
+.table-action {
+  padding: 6px 12px;
+  font-size: 12px;
+  box-shadow: none;
 }
 
 .thumb {
