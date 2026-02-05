@@ -25,6 +25,7 @@
 - Add WebSocket updates to replace polling for long jobs.
 - Add usage limits and abuse detection for hosted URLs.
 - Add real photography samples with explicit usage permission.
+- Add rate limiting and security headers for production hardening.
 
 ### Motivation
 I started this project because I’ve used remove.bg many times since high school as an artist. I wanted a tool that feels as fast as those one‑click workflows but with a product‑grade experience: clean UI, clear feedback, and a hosted result you can share instantly.

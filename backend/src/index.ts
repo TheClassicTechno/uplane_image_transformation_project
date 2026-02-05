@@ -3,6 +3,7 @@ import "dotenv/config";
 import cors from "cors";
 import crypto from "crypto";
 import express from "express";
+import morgan from "morgan";
 import multer from "multer";
 import { performance } from "perf_hooks";
 import sharp from "sharp";
@@ -42,6 +43,7 @@ app.use(
     origin: process.env.CLIENT_ORIGIN ?? "*",
   })
 );
+app.use(morgan("tiny"));
 
 // In-memory uploads keep the pipeline simple.
 const upload = multer({
