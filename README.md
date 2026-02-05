@@ -18,6 +18,7 @@ The goal is to make background removal feel as satisfying as hitting send on a g
 - Instant shareable URLs once processing completes.
 - Built-in sample image for a one-click demo.
 - One page navigation that jumps to About, Motivation, How we made it, and Benefits.
+- Responsive layout for phones and laptops.
 
 ## Features
 - Background removal via remove.bg.
@@ -26,6 +27,7 @@ The goal is to make background removal feel as satisfying as hitting send on a g
 - SQLite storage for records, caching, and history.
 - Mode toggle for optimized or original processing.
 - Gallery actions for share, download, and delete.
+- Supported formats: JPG, PNG, AVIF, WebP.
 - Responsive, modern UI with subtle motion.
 
 ## Tech Stack

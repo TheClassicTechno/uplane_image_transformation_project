@@ -718,6 +718,10 @@ const App = () => {
             Cloudinary for hosted images, remove.bg for background removal, TypeScript for the
             backend, React for the frontend, and Sharp for image processing.
           </p>
+          <p>
+            Made by Juli Huang. Supports JPG, PNG, AVIF, and WebP uploads, and adapts to phone and
+            desktop screens.
+          </p>
         </div>
       </section>
     </div>

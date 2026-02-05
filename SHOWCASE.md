@@ -10,6 +10,7 @@ Image Transform Studio turns a multi‑tool workflow into a single action. Uploa
 - One‑click sample image demo removes first‑use friction.
 - Inline timing badges surface real performance.
 - Lightweight request logging keeps ops visibility simple.
+- Responsive layout and multi-format support (JPG, PNG, AVIF, WebP).
 
 ### What this demonstrates
 - Product instincts: minimal steps, high clarity, strong feedback.
