@@ -1,8 +1,10 @@
 # Uplane Image Transformation
 by Juli Huang
-demo site:
+
+# demo site:
 [uplane-image-transformation-project.vercel.app ](https://uplane-image-transformation.vercel.app/) 
-demo video:
+
+# demo video:
 https://drive.google.com/file/d/12uz57rt6mMJdHZnIpwd7OOsikDahpQqQ/view?usp=drivesdk 
 
 ## Overview
