@@ -2,6 +2,8 @@
 by Juli Huang
 demo site:
 [uplane-image-transformation-project.vercel.app ](https://uplane-image-transformation.vercel.app/) 
+demo video:
+https://drive.google.com/file/d/12uz57rt6mMJdHZnIpwd7OOsikDahpQqQ/view?usp=drivesdk 
 
 ## Overview
 A full stack image transformation web app that removes backgrounds, flips horizontally, and returns shareable URLs. The experience is designed to feel calm and obvious: upload once, watch clear progress, and get a ready to use result.
