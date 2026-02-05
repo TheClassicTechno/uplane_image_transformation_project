@@ -14,8 +14,9 @@ The goal is to make background removal feel as satisfying as hitting send on a g
 
 ## Product Experience
 - Single screen flow with drag and drop upload.
-- Clear status text and a progress bar while work is in flight.
+- Clear status text, progress bar, and timing badges while work is in flight.
 - Instant shareable URLs once processing completes.
+- Built-in sample image for a one-click demo.
 - One page navigation that jumps to About, Motivation, How we made it, and Benefits.
 
 ## Features
@@ -24,6 +25,7 @@ The goal is to make background removal feel as satisfying as hitting send on a g
 - Cloud hosting for originals and processed images.
 - SQLite storage for records, caching, and history.
 - Mode toggle for optimized or original processing.
+- Gallery actions for share, download, and delete.
 - Responsive, modern UI with subtle motion.
 
 ## Tech Stack
@@ -36,7 +38,7 @@ The goal is to make background removal feel as satisfying as hitting send on a g
 ## Project Structure
 - `backend/` Express API and image pipeline
 - `frontend/` React app and UI
-- `samples/` sample images for metrics runs
+- `samples/` curated sample images for metrics runs
 - `docs` via root markdown files (design choices, tradeoffs, demo)
 
 ## API Summary

@@ -29,3 +29,4 @@
 - The result card reflects the actual hosted asset URL, not a mock.
 - Async processing and caching keep the UI responsive during heavy work.
 - Timing badges expose real pipeline latency without extra UI.
+- Request logging provides lightweight operational visibility.

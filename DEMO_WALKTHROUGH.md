@@ -27,6 +27,7 @@
 ### 6) Gallery and history (optional)
 - Scroll to “All photos” and show recent successful transformations.
 - Use the “Share” and “Download” actions inside the table.
+- Delete an older row to show cleanup from the gallery.
 - Highlight that the gallery is server‑backed and ready for sharing.
 
 ### 7) Quick technical note (optional)

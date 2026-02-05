@@ -12,6 +12,7 @@
 - [ ] `DATABASE_PATH` is set to a persistent volume location.
 - [ ] Health check responds at `/api/health`.
 - [ ] CORS is locked to the frontend domain.
+- [ ] Request logging is enabled (morgan).
 
 ### Frontend (Vercel / Netlify)
 - [ ] Build command works: `npm install && npm run build`.
@@ -22,6 +23,7 @@
 - [ ] Upload an image and confirm successful processing.
 - [ ] Copy URL opens the hosted processed image.
 - [ ] Delete removes both hosted images.
+- [ ] Gallery actions (share, download, delete) work end-to-end.
 - [ ] Error state appears for invalid file types.
 - [ ] Latency is acceptable on a real network.
 

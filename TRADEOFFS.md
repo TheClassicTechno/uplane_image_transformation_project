@@ -8,6 +8,7 @@
 - Mode toggle balances speed (optimized) and fidelity (original).
 - Gallery actions (share, download, delete) make iteration fast.
 - Inline timing badges show performance without extra clicks.
+- Built‑in sample images make the demo instant.
 
 **Cons**
 - Minimal configuration means no advanced tuning (e.g., edge refinement).

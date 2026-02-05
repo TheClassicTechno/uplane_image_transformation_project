@@ -14,7 +14,7 @@ These are preliminary results from local runs. They are meant to show expected q
 Use the harness to generate repeatable results across multiple samples and output a shareable table.
 
 ### Setup
-1. Add 3–5 images to `samples/` (see `samples/README.md`).
+1. Use the curated samples in `samples/` or add 3–5 of your own (see `samples/README.md`).
 2. Ensure `REMOVE_BG_API_KEY` is set in `backend/.env`.
 
 ### Run
